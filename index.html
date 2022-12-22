@@ -26,16 +26,12 @@
                 <div class="row">
                     <div class="col">$</div>
                     <div class="col">€</div>
-                    <div class="col">£</div>
-                    <div class="col">Fr</div>
                     <div class="col">zł</div>
                     <div class="col">грн</div>
                 </div>
                 <div class="row">
                     <div class="col dollar"></div>
                     <div class="col euro"></div>
-                    <div class="col funt"></div>
-                    <div class="col frank"></div>
                     <div class="col zloty"></div>
                     <div class="col hryvnia"></div>
                 </div>
@@ -46,8 +42,6 @@
                 <div class="row">
                     <div class="col">$</div>
                     <div class="col">€</div>
-                    <div class="col">£</div>
-                    <div class="col">Fr</div>
                     <div class="col">zł</div>
                     <div class="col">грн</div>
                 </div>
@@ -59,14 +53,6 @@
                     <div class="col euro-tab">
                         <span class="euro"></span>
                         <input onkeypress="setMorningValue(event, 'euro')" class="morning-input change-input" id="morning-euro" type="number" step="0.0001" />
-                    </div>
-                    <div class="col funt-tab">
-                        <span class="funt"></span>
-                        <input onkeypress="setMorningValue(event, 'funt')" class="morning-input change-input" id="morning-funt" type="number" step="0.0001" />
-                    </div>
-                    <div class="col frank-tab">
-                        <span class="frank"></span>
-                        <input onkeypress="setMorningValue(event, 'frank')" class="morning-input change-input" id="morning-frank" type="number" step="0.0001" />
                     </div>
                     <div class="col zloty-tab">
                         <span class="zloty"></span>
@@ -82,8 +68,6 @@
         <div class="select-buttons">
             <button class="selected" id="toggle-dollar" onclick="changeTab('dollar')">Доллары $</button>
             <button id="toggle-euro" onclick="changeTab('euro')">Евро €</button>
-            <button id="toggle-funt" onclick="changeTab('funt')">Фунт £</button>
-            <button id="toggle-frank" onclick="changeTab('frank')">Франк Fr</button>
             <button id="toggle-zloty" onclick="changeTab('zloty')">Злотый zł</button>
         </div>
         <select id="mobile-select">
@@ -91,10 +75,6 @@
             <option value="sale-dollar">Доллар Продажа</option>
             <option value="buy-euro">Евро Покупка</option>
             <option value="sale-euro">Евро Продажа</option>
-            <option value="buy-funt">Фунт Покупка</option>
-            <option value="sale-funt">Фунт Продажа</option>
-            <option value="buy-frank">Франк Покупка</option>
-            <option value="sale-frank">Франк Продажа</option>
             <option value="buy-zloty">Злотый Покупка</option>
             <option value="sale-zloty">Злотый Продажа</option>
         </select>
@@ -204,112 +184,7 @@
                 </div>
             </div>
         </div>
-        <div id="funt" class="buy-sale hidden-table">
-            <div class="table buy">
-                <div class="row table-header">Покупка £</div>
-                <div class="row">
-                    <div class="col">Кол-во £</div>
-                    <div class="col">Курс £</div>
-                    <div class="col">Сумма в грн</div>
-                </div>
-                <div id="buy-funt">
-                </div>
-                <div class="row add-row">
-                    <input data-input="sum" placeholder="Кол-во £" class="col" type="text">
-                    <input data-input="course" placeholder="Курс £" class="col" type="text">
-                    <button onclick="addRow(true, 'funt')" class="col">
-                        Добавить
-                    </button>
-                </div>
-                <div class="total">
-                    ИТОГО:
-                    <div class="row">
-                        <div data-total="amount" class="col"></div>
-                        <div data-total="course" class="col"></div>
-                        <div data-total="sum" class="col"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="divider"></div>
-            <div class="table sale">
-                <div class="row table-header">Продажа £</div>
-                <div class="row">
-                    <div class="col">Кол-во £</div>
-                    <div class="col">Курс £</div>
-                    <div class="col">Сумма в грн</div>
-                </div>
-                <div id="sale-funt">
-                </div>
-                <div class="row add-row">
-                    <input data-input="sum" placeholder="Кол-во £" class="col" type="number" step="0.0001">
-                    <input data-input="course" placeholder="Курс £" class="col" type="number" step="0.0001">
-                    <button onclick="addRow(false, 'funt')" class="col">
-                        Добавить
-                    </button>
-                </div>
-                <div class="total">
-                    ИТОГО:
-                    <div class="row">
-                        <div data-total="amount" class="col"></div>
-                        <div data-total="course" class="col"></div>
-                        <div data-total="sum" class="col"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="frank" class="buy-sale hidden-table">
-            <div class="table buy">
-                <div class="row table-header">Покупка Fr</div>
-                <div class="row">
-                    <div class="col">Кол-во Fr</div>
-                    <div class="col">Курс Fr</div>
-                    <div class="col">Сумма в грн</div>
-                </div>
-                <div id="buy-frank">
-                </div>
-                <div class="row add-row">
-                    <input data-input="sum" placeholder="Кол-во Fr" class="col" type="text">
-                    <input data-input="course" placeholder="Курс Fr" class="col" type="text">
-                    <button onclick="addRow(true, 'frank')" class="col">
-                        Добавить
-                    </button>
-                </div>
-                <div class="total">
-                    ИТОГО:
-                    <div class="row">
-                        <div data-total="amount" class="col"></div>
-                        <div data-total="course" class="col"></div>
-                        <div data-total="sum" class="col"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="divider"></div>
-            <div class="table sale">
-                <div class="row table-header">Продажа Fr</div>
-                <div class="row">
-                    <div class="col">Кол-во Fr</div>
-                    <div class="col">Курс Fr</div>
-                    <div class="col">Сумма в грн</div>
-                </div>
-                <div id="sale-frank">
-                </div>
-                <div class="row add-row">
-                    <input data-input="sum" placeholder="Кол-во Fr" class="col" type="number" step="0.0001">
-                    <input data-input="course" placeholder="Курс Fr" class="col" type="number" step="0.0001">
-                    <button onclick="addRow(false, 'frank')" class="col">
-                        Добавить
-                    </button>
-                </div>
-                <div class="total">
-                    ИТОГО:
-                    <div class="row">
-                        <div data-total="amount" class="col"></div>
-                        <div data-total="course" class="col"></div>
-                        <div data-total="sum" class="col"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <div id="zloty" class="buy-sale hidden-table">
             <div class="table buy">
                 <div class="row table-header">Покупка zł</div>
