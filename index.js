@@ -13,12 +13,6 @@ const saleDollarTable = document.getElementById('sale-dollar');
 const buyEuroTable = document.getElementById('buy-euro');
 const saleEuroTable = document.getElementById('sale-euro');
 
-const buyFuntTable = document.getElementById('buy-funt');
-const saleFuntTable = document.getElementById('sale-funt');
-
-const buyFrankTable = document.getElementById('buy-frank');
-const saleFrankTable = document.getElementById('sale-frank');
-
 const buyZlotyTable = document.getElementById('buy-zloty');
 const saleZlotyTable = document.getElementById('sale-zloty');
 
@@ -36,12 +30,6 @@ function clearTables() {
 
     saleDollarTable.innerHTML = null;
     saleEuroTable.innerHTML = null;
-
-    buyFuntTable.innerHTML = null;
-    saleFuntTable.innerHTML = null;
-
-    buyFrankTable.innerHTML = null;
-    saleFrankTable.innerHTML = null;
 
     buyZlotyTable.innerHTML = null;
     saleZlotyTable.innerHTML = null;
@@ -80,15 +68,13 @@ async function getAccess (pass) {
 async function callbackExistence(data) {
     setExistence(data, 'dollar');
     setExistence(data, 'euro');
-    setExistence(data, 'funt');
-    setExistence(data, 'frank');
     setExistence(data, 'zloty');
     setExistence(data, 'hryvnia');
 }
 
 function changeTab(currency) {
 
-    const currencies = ['dollar', 'euro', 'funt', 'frank', 'zloty'];
+    const currencies = ['dollar', 'euro', 'zloty'];
     const filteredCurrencies = currencies.filter((curr) => curr !== currency);
     const activeTable = document.getElementById(currency);
     const activeToggle = document.getElementById(`toggle-${currency}`);
@@ -116,7 +102,7 @@ function noData() {
     document.querySelectorAll('.total .col').forEach((el) => {
         el.innerHTML = ""
     });
-    let arr = ['dollar', 'euro', 'funt', 'frank', 'zloty', 'hryvnia'];
+    let arr = ['dollar', 'euro', 'zloty', 'hryvnia'];
     arr.map((el) => {
         document.querySelector(`#existing-current .${el}`).innerHTML = "";
         document.querySelector(`#existing-morning .${el}`).innerHTML = "";
@@ -284,20 +270,6 @@ function setTotalChanges(obj) {
         generateTotal('sale', 'euro', obj["sale-euro"]);
     }
 
-    if(obj && obj["buy-funt"]?.length > 0) {
-        generateTotal('buy', 'funt', obj["buy-funt"]);
-    }
-    if(obj && obj["sale-funt"]?.length > 0) {
-        generateTotal('sale', 'funt', obj["sale-funt"]);
-    }
-
-    if(obj && obj["buy-frank"]?.length > 0) {
-        generateTotal('buy', 'frank', obj["buy-frank"]);
-    }
-    if(obj && obj["sale-frank"]?.length > 0) {
-        generateTotal('sale', 'frank', obj["sale-frank"]);
-    }
-
     if(obj && obj["buy-zloty"]?.length > 0) {
         generateTotal('buy', 'zloty', obj["buy-zloty"]);
     }
@@ -354,7 +326,7 @@ function getExistenceValue(object, currency) {
     if(currency === 'hryvnia') {
         let buyHryvnia = null;
         let saleHryvnia = null;
-        let arr = ['dollar', 'euro', 'funt', 'frank', 'zloty'];
+        let arr = ['dollar', 'euro', 'zloty'];
         arr.map((el) => {
             if(object[`buy-${el}`] && object[`buy-${el}`].length > 0) {
                 object[`buy-${el}`].map((obj) => {
@@ -429,34 +401,6 @@ async function setTable(data) {
         data["sale-euro"].map((obj) => {
             const row = createRow('sale-euro', obj);
             saleEuroTable.innerHTML = saleEuroTable.innerHTML + row;
-        });
-    }
-
-    if(data["buy-funt"]?.length > 0) {
-        data["buy-funt"].map((obj) => {
-            const row = createRow('buy-funt', obj);
-            buyFuntTable.innerHTML = buyFuntTable.innerHTML + row;
-        });
-    }
-
-    if(data["sale-funt"]?.length > 0) {
-        data["sale-funt"].map((obj) => {
-            const row = createRow('sale-funt', obj);
-            saleFuntTable.innerHTML = saleFuntTable.innerHTML + row;
-        });
-    }
-
-    if(data["buy-frank"]?.length > 0) {
-        data["buy-frank"].map((obj) => {
-            const row = createRow('buy-frank', obj);
-            buyFrankTable.innerHTML = buyFrankTable.innerHTML + row;
-        });
-    }
-
-    if(data["sale-frank"]?.length > 0) {
-        data["sale-frank"].map((obj) => {
-            const row = createRow('sale-frank', obj);
-            saleFrankTable.innerHTML = saleFrankTable.innerHTML + row;
         });
     }
 
@@ -610,12 +554,6 @@ async function getData() {
                 "buy-dollar": [],
                 "sale-dollar": [],
 
-                "buy-funt": [],
-                "sale-funt": [],
-
-                "buy-frank": [],
-                "sale-frank": [],
-
                 "buy-zloty": [],
                 "sale-zloty": [],
             }
@@ -623,8 +561,6 @@ async function getData() {
             let existence = {
                 "dollar": setExistence(apiData[selectedDay], "dollar"),
                 "euro": setExistence(apiData[selectedDay], "euro"),
-                "funt": setExistence(apiData[selectedDay], "funt"),
-                "frank": setExistence(apiData[selectedDay], "frank"),
                 "zloty": setExistence(apiData[selectedDay], "zloty"),
                 "hryvnia": setExistence(apiData[selectedDay], "hryvnia"),
             }
@@ -660,12 +596,6 @@ async function putData(type, currency, obj) {
 
             "buy-dollar": [],
             "sale-dollar": [],
-
-            "buy-funt": [],
-            "sale-funt": [],
-
-            "buy-frank": [],
-            "sale-frank": [],
 
             "buy-zloty": [],
             "sale-zloty": [],
@@ -723,7 +653,7 @@ async function setMorningValue(e, currency) {
     }
 }
 function setExistingHandles() {
-    let arr = ['dollar', 'euro', 'funt', 'frank', 'zloty', 'hryvnia'];
+    let arr = ['dollar', 'euro', 'zloty', 'hryvnia'];
     arr.map((currency) => {
         document.querySelector(`#existing-morning .${currency}-tab`).addEventListener('dblclick', () => {
             if(!(selectedDay === now.getFullYear()+"-"+(month)+"-"+(day))) {
