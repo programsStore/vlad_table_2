@@ -5,7 +5,7 @@
 const url = "https://api.jsonbin.io/v3/b";
 let binId = "";
 
-let masterKey = "";
+let masterKey = "$2b$10$Vn0F.r6PuZwp2RyPLntMFuFALePC.1MDzl5fB.P19iWuGXk.zx7yC";
 
 const buyDollarTable = document.getElementById('buy-dollar');
 const saleDollarTable = document.getElementById('sale-dollar');
@@ -668,40 +668,9 @@ function setExistingHandles() {
     });
 }
 
-async function checkForPass() {
-    let pass = localStorage.getItem('masterKey') ? localStorage.getItem('masterKey') : prompt('Введите пароль');
-    if(pass === null || pass === "") {
-        if(confirm('Введите действительный пароль')) {
-            localStorage.removeItem('masterKey')
-            return checkForPass();
-        }
-        else {
-            localStorage.removeItem('masterKey')
-            return false;
-        }
-    }
-    else {
-        const response = await getAccess(pass);
-        if(!response?.message) {
-            localStorage.setItem('masterKey', pass);
-            masterKey = pass;
-        }
-        else {
-            if(confirm('Введите действительный пароль')) {
-                localStorage.removeItem('masterKey')
-                return checkForPass();
-            }
-            else {
-                localStorage.removeItem('masterKey')
-                return false;
-            }
-        }
-    }
-};
 
 document.addEventListener('DOMContentLoaded', async () => {
-
-    await checkForPass();
+    
     let calendar = document.getElementById('calendar');
     let mobileSelect = document.getElementById('mobile-select');
     calendar.setAttribute('value', selectedDay);
