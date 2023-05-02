@@ -4,6 +4,7 @@
 
 const url = "https://api.jsonbin.io/v3/b";
 let binId = "";
+let isCreatingStorage = false;
 
 let masterKey = "$2b$10$Vn0F.r6PuZwp2RyPLntMFuFALePC.1MDzl5fB.P19iWuGXk.zx7yC";
 
@@ -430,6 +431,7 @@ async function setTable(data) {
 
 async function checkForBinId(data, year, month) {
     let binName = `${year}-${month}`;
+    isCreatingStorage = true;
 
     const response = await fetch(url, {
         method: 'POST',
@@ -450,7 +452,8 @@ async function checkForBinId(data, year, month) {
 
         newData[year][month] = response?.metadata?.id;
 
-        const putResponse = setNewData(newData, '63a42a3415ab31599e2286db');
+        const putResponse = await setNewData(newData, '63a42a3415ab31599e2286db');
+        isCreatingStorage = false;
 
         if(!putResponse.message) {
             return response?.metadata?.id;
@@ -494,11 +497,13 @@ async function setStorageUrl() {
         return responseUrl;
     }
 
-    if(!responseUrl) {
-
-
+    if(!responseUrl && !isCreatingStorage) {
         const binId = checkForBinId(responseData, selectedYear, months[selectedMonth]);
         return binId;
+    }
+
+    else {
+        alert('Перезагрузите страницу.')
     }
 }
 
